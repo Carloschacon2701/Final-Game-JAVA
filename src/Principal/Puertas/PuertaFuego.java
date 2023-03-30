@@ -19,7 +19,7 @@ public class PuertaFuego extends Puertas {
 
     @Override
     public void paint(Graphics g) {
-        ImageIcon imagen = new ImageIcon(getClass().getResource("../../imagenes/pozoFuego.png"));
+        ImageIcon imagen = new ImageIcon(getClass().getResource("../../imagenes/puertaFuego.png"));
         g.drawImage(imagen.getImage(), X, Y, WIDTH, HEIGHT, null);
     }
 }

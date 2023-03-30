@@ -3,15 +3,14 @@ package Principal.Obstaculos.Pozos;
 
 import Principal.Juego;
 import static Principal.Obstaculos.Pozos.Pozos.HEIGHT;
-import static Principal.Obstaculos.Pozos.Pozos.WIDTH;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
 
 public class PozoFuego extends Pozos{
 
-    public PozoFuego( int x, int y) {
-        super( x, y);
+    public PozoFuego( int x, int y, int WIDTH) {
+        super( x, y, WIDTH);
     }
 
     @Override

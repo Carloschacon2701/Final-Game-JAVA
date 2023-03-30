@@ -13,9 +13,9 @@ import javax.swing.ImageIcon;
 
 public class Boton {
     
-    static int WIDTH = 80;
-    static int HEIGHT = 80;
-    public  boolean active= false;
+    static int WIDTH = 40;
+    static int HEIGHT = 30;
+    public  boolean activeBoton= false;
     int X=0;
     int Y=0;
     Juego j;
@@ -26,7 +26,15 @@ public class Boton {
     }
     
     public  void paint(Graphics g){
-        ImageIcon image = new ImageIcon(getClass().getResource("../../../imagenes/boton.png"));
+        String url = "";
+        if(activeBoton){
+            url= "../../../imagenes/boton2.png";
+        }
+        else{
+            url= "../../../imagenes/boton1.png";
+        }
+        
+        ImageIcon image = new ImageIcon(getClass().getResource(url));
         g.drawImage(image.getImage(), X, Y, WIDTH, HEIGHT, null);
         
     }

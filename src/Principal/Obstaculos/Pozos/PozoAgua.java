@@ -14,8 +14,8 @@ import javax.swing.ImageIcon;
  */
 public class PozoAgua extends Pozos{
 
-    public PozoAgua(int x, int y) {
-        super( x, y);
+    public PozoAgua(int x, int y, int WIDTH) {
+        super( x, y, WIDTH);
     }
 
     @Override

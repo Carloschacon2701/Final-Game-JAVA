@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 
 /**
@@ -27,28 +28,32 @@ public class Juego extends JPanel {
     public ArrayList<Pozos> ListaPozos = new ArrayList<>();
     public ArrayList<Bloques> ListaBloques = new ArrayList<>();
     public ArrayList<Puertas> ListaPuertas = new ArrayList<>();
+    public ArrayList<Barras> ListaBarras = new ArrayList<>();
     
     public Barras barra;
+    public Barras barra2;
+    public BarraVertical barraVertical;
     public Boton boton;
+    public Boton boton2;
     
+    Temporizador temp = new Temporizador();
     
     public Cubo cubo = new Cubo(this);
     
     
-    public int diamantesObtenidos= 0;
+    public int diamantesObtenidos= 1;
     Menu menu = new Menu();
-    NivelPasado nivelPasado = new NivelPasado();
+
     Mapa mapa= new Mapa();
     public int estado = 0;
     
-    
-    long timer = System.currentTimeMillis();
-    int segundo=0;
-    int minutos=0;
+    Timer timer2;
+
+
     int columnas=15;
     int filas=19;
-    public int nivel=1;
-    String nombre= "";
+    public int nivel=2;
+    public String nombre= "";
     int opcion =0;
     //CONSTRUCTOIR
     
@@ -83,9 +88,6 @@ public class Juego extends JPanel {
                 else if(estado==1){
                    niño.keyPressed(e);
                 }
-                else if(estado == 2){
-                    nivelPasado.keyPressed(e);
-                }
 
             }
 
@@ -95,35 +97,11 @@ public class Juego extends JPanel {
             }
         });
         setFocusable(true);
-
+       
 
     }
     
-    //METODOS
-    public void Temporizador(Graphics g){
-        Font score= new Font("ARIAL", Font.BOLD, 20);
-        g.setFont(score);
-        g.setColor(Color.YELLOW);
-        
-            
-            if(System.currentTimeMillis()-timer>1000){
-                timer+=1000;
-                segundo+=1; 
-            }
-        
-            if(segundo==59){
-                segundo=0;
-                minutos+=1;
-            }
-            if(minutos==0){
-                g.drawString("00:" + (segundo<10 ? "0" + segundo : segundo) , 270, 50);
-            }
-            else if(minutos>0){
-                g.drawString("0"+ minutos +":" + (segundo<10 ? "0" + segundo : segundo), 270, 50);
-            }
-        
-    }
-    
+
 
     public void ConstruirMapa(ArrayList<Bloques> ListaBloques, int[][] mapa, 
                               ArrayList<Diamantes>ListaDiamantes, ArrayList<Pozos>ListaPozos){
@@ -152,8 +130,7 @@ public class Juego extends JPanel {
                 y+=29;
            }
         }
-        
-        
+
         establecerBotonYBarra();
         establecerDiamantes(ListaDiamantes);
         establecerPozos(ListaPozos);
@@ -162,26 +139,58 @@ public class Juego extends JPanel {
     
     public void establecerPuertas(ArrayList<Puertas>ListaPuertas){
         int y=41;
-        int x= 470;
+        int x= 450;
         
         if(nivel==1){
             ListaPuertas.add(new PuertaFuego(x,y));
-            ListaPuertas.add(new PuertaAgua(x+40,y));
+            ListaPuertas.add(new PuertaAgua(x+50,y));
+        }
+        if(nivel==2){
+            ListaPuertas.add(new PuertaFuego(x-400,y));
+            ListaPuertas.add(new PuertaAgua(x-350,y));
         }
     }
     
     public void establecerBotonYBarra(){
-        barra= new BarraBoton(481,200);
-        boton= new Boton(100, 470);
+        if(nivel==1){
+            barra= new BarraBoton(483,200, nivel);
+            barra2 = new BarraBoton(42,290, nivel);
+            boton2= new Boton(170, 390);
+            boton = new Boton(240, 270);
+        }
+        if (nivel==2){
+            barra= new BarraBoton(483,200,nivel);
+            barra2 = new BarraBoton(325,91,nivel);
+            barraVertical= new BarraVertical(315,265);
+            boton2= new Boton(360, 71);
+            boton = new Boton(360, 330);
+            
+            /*BARRAS ESTATICAS*/
+            ListaBarras.add(new BarraBoton(380,180, nivel));
+            ListaBarras.add(new BarraBoton(180,180, nivel));
+        }
+
     }
     
     public void establecerPozos(ArrayList<Pozos>ListaPozos){
         int x=200;
         int y=515;
+        int WIDTH=80;
         if(nivel==1){
-            ListaPozos.add(new PozoAgua(x,y));
-            ListaPozos.add(new PozoFuego(x+130,y));
-            ListaPozos.add(new PozoVerde(x+60, y-114));
+            ListaPozos.add(new PozoAgua(x,y, WIDTH));
+            ListaPozos.add(new PozoFuego(x+130,y, WIDTH));
+            ListaPozos.add(new PozoVerde(x+60, y-114, WIDTH));
+        }
+        if(nivel==2){
+            /*ABAJO*/
+            ListaPozos.add(new PozoAgua(x+83,y, WIDTH+40));
+            ListaPozos.add(new PozoFuego(x-80,y, WIDTH+40));
+            /*arriba*/
+            ListaPozos.add(new PozoAgua(x-80,y-84,WIDTH+40));
+            ListaPozos.add(new PozoFuego(x+83,y-84,WIDTH+40));
+            /*pozo verde*/
+            ListaPozos.add(new PozoVerde(x+160, y-290, WIDTH+40));
+            ListaPozos.add(new PozoVerde(x-40, y-290, WIDTH+40));
         }
     }
     
@@ -207,12 +216,24 @@ public class Juego extends JPanel {
             ListaDiamantes.add( new DiamanteFuego(x+140,y-410));
             ListaDiamantes.add( new DiamanteAgua(x-15,y-410));   
         }
+        if(nivel==2){
+            /*diamantes de arriba*/
+            ListaDiamantes.add( new DiamanteAgua(x+80,y+25));
+            ListaDiamantes.add( new DiamanteAgua(x+140,y+25)); 
+            ListaDiamantes.add( new DiamanteFuego(x+80,y-60));
+            ListaDiamantes.add( new DiamanteFuego(x+140,y-60));
+          
+            /*diamantes de abajo*/
+            ListaDiamantes.add( new DiamanteFuego(x-90,y+25));
+            ListaDiamantes.add( new DiamanteFuego(x-30,y+25));
+            ListaDiamantes.add( new DiamanteAgua(x-90,y-60));
+            ListaDiamantes.add( new DiamanteAgua(x-30,y-60));   
+        }
     }
     
     public void perdidaNivel(){
         if(niño.detectarPozo()){
             int opcionFinal = JOptionPane.showOptionDialog(null, "Por favor Seleccione lo que desea hacer: ", "Seleccion...", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,null , new Object[]{"Reintentar", "Menu Principal", "Salir"}, "Reintentar");
-            System.out.print(opcionFinal + "Esta fue la opcion final");
             
             switch(opcionFinal){
                 case 0: {
@@ -233,7 +254,11 @@ public class Juego extends JPanel {
     
     public void nivelGanado(){
         if(niño.detectarPuerta()){
-            estado=2;
+            temp.timer.stop();
+            int opcion = JOptionPane.showConfirmDialog(null, "Diamantes: " + diamantesObtenidos + "\n" + "Tiempo: " + temp.minutos + ":"+ temp.segundo + "\n" + "Pasaste al nivel 2", "Muy bien " + nombre, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
+            nivel++;
+            
+            ConstruirMapa(ListaBloques, mapa.nivel_2, ListaDiamantes, ListaPozos);
         }
     }
     
@@ -243,6 +268,8 @@ public class Juego extends JPanel {
         diamantesObtenidos = 0;
         niño.x=60;
         niño.y=470;
+        cubo.X=390;
+        cubo.Y=120;
         
     }
     
@@ -258,23 +285,37 @@ public class Juego extends JPanel {
                 ImageIcon f = new ImageIcon(getClass().getResource("../imagenes/fondo.jpg"));
                 g.drawImage(f.getImage(), 0, 0, 590, 590, null);
                 /*bloque.paint(g);*/
-                for(int i=0; i<ListaBloques.size(); i++){
-                    ListaBloques.get(i).paint(g);
-                }   for(int i=0; i<ListaDiamantes.size(); i++){
-                    ListaDiamantes.get(i).paint(g);
-                }   for(int i=0; i<ListaPozos.size(); i++){
-                    ListaPozos.get(i).paint(g);
-                }   for(int i=0; i<ListaPuertas.size(); i++){
-                    ListaPuertas.get(i).paint(g);
-                }   cubo.paint(g);
-                barra.paint(g);
-                niño.paint(g);
-                niño.accionSaltarCaer();
-                boton.paint(g);
-                Temporizador(g);
-                break;
-            case 2:
-                nivelPasado.paint(g);
+                
+                   
+                    barra2.paint(g);
+                    barraVertical.paint(g);
+                    
+                    for(int i=0; i<ListaBloques.size(); i++){
+                       ListaBloques.get(i).paint(g);
+                    }for(int i=0; i<ListaDiamantes.size(); i++){
+                      ListaDiamantes.get(i).paint(g);
+                    }for(int i=0; i<ListaPozos.size(); i++){
+                      ListaPozos.get(i).paint(g);
+                    }for(int i=0; i<ListaPuertas.size(); i++){
+                      ListaPuertas.get(i).paint(g);
+                    }  
+                    for(int i=0; i<ListaBarras.size(); i++){
+                        ListaBarras.get(i).paint(g);
+                    }
+                    
+                    if(nivel==1){
+                        cubo.paint(g);
+                        barra.paint(g);
+                    }
+                    
+
+                    boton2.paint(g);
+                    niño.paint(g);
+                    niño.accionSaltarCaer();
+                    boton.paint(g);
+                    temp.paint(g);
+                
+
                 break;
             default:
                 break;

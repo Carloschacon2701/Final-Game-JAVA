@@ -13,8 +13,8 @@ import java.awt.Rectangle;
  * @author Carlos Daniel
  */
 public abstract class Puertas {
-    static int WIDTH = 30;
-    static int HEIGHT = 70;
+    static int WIDTH = 60;
+    static int HEIGHT = 50;
     int X=0;
     int Y=0;
     Juego j;

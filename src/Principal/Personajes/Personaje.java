@@ -16,8 +16,11 @@ public abstract class Personaje {
     static final  int velocidad=5;
     public Juego j;
     Bloques b;
-    public int x=430;
-    public int y=170;
+    /*public int x=50;
+    public int y=470;*/
+    
+    public int x=450;
+    public int y=41;
     public double gravedad= 0.0;
     public boolean saltando= false;
     public boolean cayendo= false;
@@ -48,8 +51,14 @@ public abstract class Personaje {
                return true;
             }
         }
-        if(getBoundsBottom().intersects(j.cubo.getBounds()) || getBoundsBottom().intersects(j.barra.getBounds())){
+        if(getBoundsBottom().intersects(j.cubo.getBounds()) || getBoundsBottom().intersects(j.barra.getBounds()) || getBoundsBottom().intersects(j.barra2.getBounds())){
             return true;
+        }
+        
+        for(int i=0; i<j.ListaBarras.size();i++){
+            if(getBoundsBottom().intersects(j.ListaBarras.get(i).getBounds())){
+               return true;
+            }
         }
 
         return false;
@@ -83,7 +92,18 @@ public abstract class Personaje {
     
    public void botonPressed(){
         if(j.boton.getBounds().intersects(getBounds())){
-            j.barra.active=true;
+            if(j.nivel==1){
+                j.barra.activeBoton=true;
+            }
+            else if(j.nivel==2){
+                j.barraVertical.activeBoton=true;
+            }            
+            j.boton.activeBoton=true;
+        }
+        
+        if(j.boton2.getBounds().intersects(getBounds())){
+            j.barra2.activeBoton=true;
+            j.boton2.activeBoton=true;
         }
        
    }

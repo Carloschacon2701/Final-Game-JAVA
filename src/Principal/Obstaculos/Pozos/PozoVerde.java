@@ -5,7 +5,6 @@
 package Principal.Obstaculos.Pozos;
 
 import static Principal.Obstaculos.Pozos.Pozos.HEIGHT;
-import static Principal.Obstaculos.Pozos.Pozos.WIDTH;
 import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
@@ -15,8 +14,8 @@ import javax.swing.ImageIcon;
  */
 public class PozoVerde extends Pozos {
 
-    public PozoVerde(int x, int y) {
-        super(x, y);
+    public PozoVerde(int x, int y, int WIDTH) {
+        super(x, y, WIDTH);
     }
 
     @Override

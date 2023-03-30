@@ -13,16 +13,19 @@ import java.awt.Rectangle;
  * @author Carlos Daniel
  */
 public abstract class Barras {
-    static int WIDTH = 75;
-    static int HEIGHT = 30;
-    public boolean active= false;
+    int WIDTH = 75;
+    int HEIGHT = 14;
+    int velocidad = 0;
+    public boolean activeBoton= false;
     int X=0;
     int Y=0;
-    Juego j;
+    int nivel=0;
+
     
-    public Barras( int x, int y){
+    public Barras( int x, int y, int nivel){
         this.X=x;
         this.Y=y;
+        this.nivel=nivel;
     }
     public abstract void paint(Graphics g);
     
