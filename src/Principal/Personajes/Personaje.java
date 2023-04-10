@@ -19,8 +19,8 @@ public abstract class Personaje {
     /*public int x=50;
     public int y=470;*/
     
-    public int x=450;
-    public int y=41;
+    public int x=60;
+    public int y=470;
     public double gravedad= 0.0;
     public boolean saltando= false;
     public boolean cayendo= false;

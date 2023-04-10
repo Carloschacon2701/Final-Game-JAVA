@@ -34,7 +34,6 @@ public class Temporizador {
     }
     
     public void iniciarTiempo(){
-        
         actualizarTiempo();
     }
 
@@ -51,10 +50,15 @@ public class Temporizador {
            minutos++;
        }
        
-       
-       
     }
-
+    
+    public void reiniciarValores(){
+        milisegundos=0;
+        segundo=0;
+        minutos=0;
+        
+    }
+    
     public void paint(Graphics g) {
         Font score= new Font("ARIAL", Font.BOLD, 20);
         g.setFont(score);

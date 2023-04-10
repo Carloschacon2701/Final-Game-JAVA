@@ -46,13 +46,10 @@ public class Juego extends JPanel {
 
     Mapa mapa= new Mapa();
     public int estado = 0;
-    
-    Timer timer2;
-
-
+   
     int columnas=15;
     int filas=19;
-    public int nivel=2;
+    public int nivel=1;
     public String nombre= "";
     int opcion =0;
     //CONSTRUCTOIR
@@ -257,9 +254,21 @@ public class Juego extends JPanel {
             temp.timer.stop();
             int opcion = JOptionPane.showConfirmDialog(null, "Diamantes: " + diamantesObtenidos + "\n" + "Tiempo: " + temp.minutos + ":"+ temp.segundo + "\n" + "Pasaste al nivel 2", "Muy bien " + nombre, JOptionPane.OK_OPTION, JOptionPane.INFORMATION_MESSAGE);
             nivel++;
+            limpiarEscenario();
+            temp.timer.restart();
             
             ConstruirMapa(ListaBloques, mapa.nivel_2, ListaDiamantes, ListaPozos);
         }
+    }
+    
+    public void limpiarEscenario (){
+        ListaBloques.clear();
+        ListaPuertas.clear();
+        ListaDiamantes.clear();
+        ListaPozos.clear();
+        niño.x=60;
+        niño.y=470;
+        temp.reiniciarValores();
     }
     
     public void reiniciarNivel(){
@@ -288,7 +297,10 @@ public class Juego extends JPanel {
                 
                    
                     barra2.paint(g);
-                    barraVertical.paint(g);
+                    if(nivel==2){
+                         barraVertical.paint(g);
+                    }
+                   
                     
                     for(int i=0; i<ListaBloques.size(); i++){
                        ListaBloques.get(i).paint(g);

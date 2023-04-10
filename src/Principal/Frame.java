@@ -1,20 +1,8 @@
 package Principal;
 
-
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
-
-/**
- *
- * @author Carlos Daniel
- */
 public class Frame extends JPanel{
     
     private static final int WIDTH = 610;
@@ -40,7 +28,6 @@ public class Frame extends JPanel{
             }
             juego.repaint();
         }
-        
 
     }
 
